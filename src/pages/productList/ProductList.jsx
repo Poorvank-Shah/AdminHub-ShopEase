@@ -17,7 +17,14 @@ export default function ProductList() {
 
 
   const handleDelete = (id) => {
-    deleteProduct(id,dispatch);
+      deleteProduct(id, dispatch);
+    // let cnf = confirm("Delete this product permanently?");
+    // console.log(cnf)
+    // {
+    //   cnf && setTimeout(() => {
+    //     deleteProduct(id, dispatch);
+    //   }, 3000);
+    // }
   };
 
   const columns = [
@@ -36,7 +43,7 @@ export default function ProductList() {
       },
     },
     { field: "inStock", headerName: "Stock", width: 200 },
-    
+
     {
       field: "price",
       headerName: "Price",
@@ -62,7 +69,7 @@ export default function ProductList() {
     },
   ];
 
-  const [pageSize,setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(10);
   return (
     <div className="productList">
       <DataGrid
@@ -71,7 +78,7 @@ export default function ProductList() {
         columns={columns}
         getRowId={(row) => row._id}
         pageSize={pageSize}
-        rowsPerPageOptions={[5,8,10]}
+        rowsPerPageOptions={[5, 8, 10]}
         onPageSizeChange={(newPageSize) =>
           setPageSize(newPageSize)}
         checkboxSelection

@@ -4,6 +4,7 @@ import "./newProduct.css";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import app from "../../firebase"
 import { addProduct } from "../../redux/apiCalls";
+import { useNavigate } from "react-router-dom";
 
 export default function NewProduct() {
 
@@ -17,11 +18,12 @@ export default function NewProduct() {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-  console.log(inputs)
+
   const handleCat = (e) => {
     setCat(e.target.value.split(","));
   };
 
+  const navigate = useNavigate()
   const handleClick = (e) => {
     e.preventDefault();
     const fileName = new Date().getTime() + file.name;
@@ -58,6 +60,7 @@ export default function NewProduct() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = { ...inputs, img: downloadURL, categories: cat };
           addProduct(product, dispatch);
+          navigate('/products')
         });
       }
     );
